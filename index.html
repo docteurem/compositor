@@ -1,0 +1,101 @@
+<!doctype html> 
+<html lang="">
+    
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compositor</title> 
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="assets/opentype.js"></script>
+    <script src="compositor.js"></script>
+    
+    <style>
+        body{
+            margin:64pt;
+            font-size:18pt;
+        }
+        section#document{
+            max-width:1000px;
+                
+        }
+        h1{
+            font-size:6rem;
+           
+        }
+        h2{
+            font-size:4rem;
+            
+        }
+        p.typo2{
+            font-size:2rem;
+        }
+    </style>
+    
+   
+    
+  </head>
+  <body>
+
+    <section id="document">
+    
+        <h1>COMPOSITOR</h1>
+        <p class="typo1">composes text by replacing each letter with its correspondent image file, using opentype.js to get font metrics from selected font file. Usage: redraw your font using different methods and tools, save the letters in the "specimens" folder and launch compositor.</p>
+        <p class="typo1">⟶ Then look:</p>
+        <h2>BOUM! PATATRAS! PAF! PIF!</h2>
+        <p class="typo1">I like to think (and the sooner the better!) of a cybernetic meadow where mammals and computers live together in mutually programming harmony like pure water touching clear sky. I like to think (right now, please!) of a cybernetic forest filled with pines and electronics where deer stroll peacefully past computers as if they were flowers with spinning blossoms. </p>
+        
+        
+        <h3><span class="typo1">WHAT?</span> <span class="typo2">YES!</span></h3>
+        <h1>▧ ▨ ▩ ▤ ▥ ▦ ▧ ▨ </h1>
+    
+    </section><!-- end document -->
+    
+    
+    <script>
+        var compositor = Compositor({
+            'typoPath':'fonts/typo.otf'
+        });
+
+
+        $(compositor).on('loaded', function(){
+            $('h1, h2').each(function(){
+                $(this).data('maxw', $(this).width());
+            });
+            $('h1').each(function(){
+            
+                compositor.compose($(this), 'plot1',
+                {'maxWidth':$(this).data('maxw')});
+            });
+            
+            $('h2').each(function(){
+            
+                compositor.compose($(this), 'plot2',
+                {'maxWidth':$(this).data('maxw')});
+            });
+            
+            $('p.typo1').each(function(){
+            
+                compositor.compose($(this), 'plot2',
+                {'maxWidth':$(this).data('maxw')});
+            });
+            $('p.typo2').each(function(){
+            
+                compositor.compose($(this), 'plot1',
+                {'maxWidth':$(this).data('maxw')});
+            });
+            
+            $('span.typo1').each(function(){
+                compositor.compose($(this), 'plot2'); 
+            });
+            $('span.typo2').each(function(){
+                compositor.compose($(this), 'plot1'); 
+            });
+            
+            
+        });
+    
+    </script>
+    
+  </body>
+</html>
